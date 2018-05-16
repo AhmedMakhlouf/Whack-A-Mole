@@ -8,14 +8,17 @@ public class Score : MonoBehaviour
     public Text scoreText;
     public Text finalScoreText;
 
-    private void Start()
-    {
-        scoreText.text = "0";
-    }
+    private string _zero = "0";
+    
 
     public void UpdateScore(int s)
     {
         scoreText.text = s.ToString();
+    }
+
+    public void NewGame()
+    {
+        scoreText.text = _zero;
     }
 
     public void GameOver(int s)

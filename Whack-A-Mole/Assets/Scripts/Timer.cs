@@ -14,12 +14,6 @@ public class Timer : MonoBehaviour
 
     public UnityAction OnTimeOut;
 
-    //private void Start()
-    //{
-    //    _time = startTime;
-    //    timerText.text = startTime.ToString();
-    //}
-
     public void Restart()
     {
         _time = startTime;
@@ -39,9 +33,4 @@ public class Timer : MonoBehaviour
         }
         OnTimeOut();
     }
-
-    //void TimeOut()
-    //{
-    //    _time = 0;
-    //}
 }

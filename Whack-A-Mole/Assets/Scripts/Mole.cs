@@ -5,10 +5,9 @@ using UnityEngine.Events;
 
 public class Mole : MonoBehaviour
 {
-
     public MoleData data;
 
-    public UnityAction<Mole> OnMoleDied;
+    public UnityAction<Mole, bool> OnMoleDied;
 
     private bool _alive = false;
     private GameObject _gameObject;
@@ -18,15 +17,9 @@ public class Mole : MonoBehaviour
         _gameObject = gameObject;
     }
 
-    //private void OnEnable()
-    //{
-    //    _gameObject = gameObject;
-    //}
-
     public void Respawn()
     {
         _gameObject.SetActive(true);
-        //gameObject.SetActive(true);
         StartCoroutine("Timer");
     }
 
@@ -34,23 +27,22 @@ public class Mole : MonoBehaviour
     {
         if (_gameObject.activeSelf == false)
             return;
-        //if (gameObject.activeSelf == false)
-        //    return;
 
-        OnMoleDied(this);
+        //OnMoleDied(this, true);
         _gameObject.SetActive(false);
-        //gameObject.SetActive(true);
     }
 
     public void MoleClicked()
     {
         StopCoroutine("Timer");
+        OnMoleDied(this, true);
         Despawn();
     }
 
     IEnumerator Timer()
     {
         yield return new WaitForSeconds(data.timeOnScreen);
+        OnMoleDied(this, false);
         Despawn();
     }
 }

@@ -12,7 +12,7 @@ public class GameLogic : MonoBehaviour
     public GameUI ui;
 
     private int _currentMolesOnScreen;
-    private int _score;
+    private int _points;
     private List<Mole> _disabledMoles = new List<Mole>();
     private WaitForSeconds _wait;
 
@@ -27,10 +27,13 @@ public class GameLogic : MonoBehaviour
         _wait = new WaitForSeconds(spawnTimer);
     }
     
-    private void MoleDied(Mole mole)
+    private void MoleDied(Mole mole, bool clicked)
     {
         _disabledMoles.Add(mole);
         _currentMolesOnScreen--;
+
+        if (clicked)
+            score.UpdateScore(++_points);
 
         SpawnImmediate();
     }
@@ -38,6 +41,7 @@ public class GameLogic : MonoBehaviour
     public void NewGame()
     {
         ui.NewGame();
+        score.NewGame();
 
         foreach (Mole m in moles)
         {
@@ -45,8 +49,11 @@ public class GameLogic : MonoBehaviour
             _disabledMoles.Add(m);
         }
 
+        _points = 0;
         _currentMolesOnScreen = 0;
+
         StartCoroutine("SpawnMoles");
+        SpawnImmediate();
         timer.Restart();
     }
 
@@ -54,7 +61,7 @@ public class GameLogic : MonoBehaviour
     {
         StopCoroutine("SpawnMoles");
         ui.GameOver();
-        score.GameOver(_score);
+        score.GameOver(_points);
     }
 
     IEnumerator SpawnMoles()
@@ -74,8 +81,9 @@ public class GameLogic : MonoBehaviour
 
     private void SpawnImmediate()
     {
-        if (_currentMolesOnScreen < 5 && _disabledMoles.Count > 0)
+        while (_currentMolesOnScreen < 5 && _disabledMoles.Count > 0)
         {
+            
             _disabledMoles[0].Respawn();
             _disabledMoles.RemoveAt(0);
             _currentMolesOnScreen++;

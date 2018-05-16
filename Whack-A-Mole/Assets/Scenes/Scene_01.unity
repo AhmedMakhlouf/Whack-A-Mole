@@ -379,7 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1441778300}
-  finalScoreText: {fileID: 0}
+  finalScoreText: {fileID: 464603889}
 --- !u!114 &428353677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,7 +460,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 
 --- !u!222 &464603890
 CanvasRenderer:
   m_ObjectHideFlags: 0
