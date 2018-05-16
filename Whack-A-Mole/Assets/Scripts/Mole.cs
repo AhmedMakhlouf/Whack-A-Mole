@@ -5,10 +5,12 @@ using UnityEngine.Events;
 
 public class Mole : MonoBehaviour
 {
-    public MoleData data;
+    public MoleVisuals visuals;
 
     public UnityAction<Mole, bool> OnMoleDied;
 
+    [HideInInspector]
+    public MoleData data;
     private bool _alive = false;
     private GameObject _gameObject;
 
@@ -17,11 +19,15 @@ public class Mole : MonoBehaviour
         _gameObject = gameObject;
     }
 
-    public void Respawn(Vector2 pos)
+    public void Respawn(Vector2 pos, MoleData d)
     {
+        data = d;
+
         _gameObject.GetComponent<RectTransform>().localPosition = pos;
         _gameObject.SetActive(true);
         StartCoroutine("Timer");
+
+        visuals.Respawn(data);
     }
 
     public void Despawn()

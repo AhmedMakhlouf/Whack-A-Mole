@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameLogic : MonoBehaviour
 {
     public Mole[] moles;
+    public MoleData[] moleData;
+
     public float spawnTimer;
 
     public Score score;
@@ -35,7 +37,10 @@ public class GameLogic : MonoBehaviour
         _currentMolesOnScreen--;
 
         if (clicked)
-            score.UpdateScore(++_points);
+        {
+            _points += mole.data.points;
+            score.UpdateScore(_points);
+        }
 
         SpawnImmediate();
     }
@@ -74,7 +79,7 @@ public class GameLogic : MonoBehaviour
         {
             if(_currentMolesOnScreen < 7 && _disabledMoles.Count > 0)
             {
-                _disabledMoles[0].Respawn(location.FindLocation(_disabledMoles[0]));
+                _disabledMoles[0].Respawn(location.FindLocation(_disabledMoles[0]), RandomMole());
                 _disabledMoles.RemoveAt(0);
                 _currentMolesOnScreen++;
             }
@@ -87,10 +92,14 @@ public class GameLogic : MonoBehaviour
     {
         while (_currentMolesOnScreen < 5 && _disabledMoles.Count > 0)
         {
-            
-            _disabledMoles[0].Respawn(location.FindLocation(_disabledMoles[0]));
+            _disabledMoles[0].Respawn(location.FindLocation(_disabledMoles[0]), RandomMole());
             _disabledMoles.RemoveAt(0);
             _currentMolesOnScreen++;
         }
+    }
+
+    private MoleData RandomMole()
+    {
+        return moleData[Random.Range(0, 3)];
     }
 }

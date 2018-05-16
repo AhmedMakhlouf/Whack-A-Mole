@@ -42,7 +42,7 @@ public class Score : MonoBehaviour
 
     private void CheckNewHighScore(int s)
     {
-        if (s < _topScores[4])
+        if (s < _topScores[4] || _topScores.Contains(s))
             return;
 
         _topScores[4] = s;

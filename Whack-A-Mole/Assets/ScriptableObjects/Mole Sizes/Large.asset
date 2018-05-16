@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7906ab829aede744c9f265111ef0f4a7, type: 3}
   m_Name: Large
   m_EditorClassIdentifier: 
-  size: 100
-  points: 0
+  size: 1.1
+  points: 1
   timeOnScreen: 8
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0, g: 0.71883535, b: 1, a: 1}
