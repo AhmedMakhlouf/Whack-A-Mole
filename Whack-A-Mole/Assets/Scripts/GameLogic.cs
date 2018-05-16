@@ -10,6 +10,7 @@ public class GameLogic : MonoBehaviour
     public Score score;
     public Timer timer;
     public GameUI ui;
+    public RandomLocation location;
 
     private int _currentMolesOnScreen;
     private int _points;
@@ -29,6 +30,7 @@ public class GameLogic : MonoBehaviour
     
     private void MoleDied(Mole mole, bool clicked)
     {
+        location.FreeLocation(mole);
         _disabledMoles.Add(mole);
         _currentMolesOnScreen--;
 
@@ -42,6 +44,8 @@ public class GameLogic : MonoBehaviour
     {
         ui.NewGame();
         score.NewGame();
+        location.NewGame();
+        _disabledMoles.Clear();
 
         foreach (Mole m in moles)
         {
@@ -70,7 +74,7 @@ public class GameLogic : MonoBehaviour
         {
             if(_currentMolesOnScreen < 7 && _disabledMoles.Count > 0)
             {
-                _disabledMoles[0].Respawn();
+                _disabledMoles[0].Respawn(location.FindLocation(_disabledMoles[0]));
                 _disabledMoles.RemoveAt(0);
                 _currentMolesOnScreen++;
             }
@@ -84,7 +88,7 @@ public class GameLogic : MonoBehaviour
         while (_currentMolesOnScreen < 5 && _disabledMoles.Count > 0)
         {
             
-            _disabledMoles[0].Respawn();
+            _disabledMoles[0].Respawn(location.FindLocation(_disabledMoles[0]));
             _disabledMoles.RemoveAt(0);
             _currentMolesOnScreen++;
         }
