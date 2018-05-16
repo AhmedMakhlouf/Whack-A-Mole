@@ -51,7 +51,7 @@ public class RandomLocation : MonoBehaviour
     {
         foreach(KeyValuePair<Mole, Vector2> entry in _reservedLocation)
         {
-            float minDistance = m.data.size / 2 + entry.Key.data.size / 2;
+            float minDistance = m.data.size / 2 + entry.Key.data.size / 2 + 20;
 
             float distance = Vector2.Distance(newPos, entry.Value);
 
