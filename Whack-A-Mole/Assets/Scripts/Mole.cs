@@ -18,9 +18,15 @@ public class Mole : MonoBehaviour
         _gameObject = gameObject;
     }
 
+    //private void OnEnable()
+    //{
+    //    _gameObject = gameObject;
+    //}
+
     public void Respawn()
     {
         _gameObject.SetActive(true);
+        //gameObject.SetActive(true);
         StartCoroutine("Timer");
     }
 
@@ -28,9 +34,12 @@ public class Mole : MonoBehaviour
     {
         if (_gameObject.activeSelf == false)
             return;
+        //if (gameObject.activeSelf == false)
+        //    return;
 
         OnMoleDied(this);
         _gameObject.SetActive(false);
+        //gameObject.SetActive(true);
     }
 
     public void MoleClicked()

@@ -9,6 +9,7 @@ public class GameLogic : MonoBehaviour
 
     public Score score;
     public Timer timer;
+    public GameUI ui;
 
     private int _currentMolesOnScreen;
     private int _score;
@@ -25,12 +26,7 @@ public class GameLogic : MonoBehaviour
         timer.OnTimeOut += GameOver;
         _wait = new WaitForSeconds(spawnTimer);
     }
-
-    private void Start()
-    {
-        NewGame();
-    }
-
+    
     private void MoleDied(Mole mole)
     {
         _disabledMoles.Add(mole);
@@ -39,8 +35,10 @@ public class GameLogic : MonoBehaviour
         SpawnImmediate();
     }
 
-    private void NewGame()
+    public void NewGame()
     {
+        ui.NewGame();
+
         foreach (Mole m in moles)
         {
             m.Despawn();
@@ -54,7 +52,9 @@ public class GameLogic : MonoBehaviour
 
     private void GameOver()
     {
-
+        StopCoroutine("SpawnMoles");
+        ui.GameOver();
+        score.GameOver(_score);
     }
 
     IEnumerator SpawnMoles()

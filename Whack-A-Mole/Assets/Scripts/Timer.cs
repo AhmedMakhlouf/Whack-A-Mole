@@ -14,15 +14,16 @@ public class Timer : MonoBehaviour
 
     public UnityAction OnTimeOut;
 
-    private void Start()
-    {
-        _time = startTime;
-        timerText.text = startTime.ToString();
-    }
+    //private void Start()
+    //{
+    //    _time = startTime;
+    //    timerText.text = startTime.ToString();
+    //}
 
     public void Restart()
     {
         _time = startTime;
+        timerText.text = startTime.ToString();
         StartCoroutine("StartTimer");
     }
 
@@ -36,11 +37,11 @@ public class Timer : MonoBehaviour
             if (_time == 0)
                 break;
         }
-        TimeOut();
+        OnTimeOut();
     }
 
-    void TimeOut()
-    {
-        _time = 0;
-    }
+    //void TimeOut()
+    //{
+    //    _time = 0;
+    //}
 }
