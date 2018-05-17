@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class MoleVisuals : MonoBehaviour
@@ -12,21 +10,21 @@ public class MoleVisuals : MonoBehaviour
 
     public RectTransform movingImage;
     public RectTransform target;
+        
+    private bool animating;
+    private float step;
 
-    private bool _animating;
-    private float _step;
-
-	void Update ()
+    void Update ()
     {
-        if (!_animating)
+        if (!animating)
             return;
 
-        movingImage.localPosition = Vector2.MoveTowards(movingImage.localPosition, target.localPosition, _step);
+        movingImage.localPosition = Vector2.MoveTowards(movingImage.localPosition, target.localPosition, step);
 
         if(Vector2.Distance(movingImage.localPosition, target.localPosition) < 0.05f)
         {
             movingImage.localPosition = target.localPosition;
-            _animating = false;
+            animating = false;
         }
 
     }
@@ -39,8 +37,8 @@ public class MoleVisuals : MonoBehaviour
         back.color = data.color;
 
         movingImage.localPosition = Vector2.zero;
-        _step = (Vector2.Distance(movingImage.localPosition, target.localPosition) / data.timeOnScreen) * Time.deltaTime;
+        step = (Vector2.Distance(movingImage.localPosition, target.localPosition) / data.timeOnScreen) * Time.deltaTime;
 
-        _animating = true;
+        animating = true;
     }
 }

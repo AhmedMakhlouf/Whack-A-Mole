@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,13 +8,13 @@ public class Score : MonoBehaviour
     public Text finalScoreText;
     public Text[] topScoresText;
 
-    private string _zero = "0";
-    private GameSave _gameSave = new GameSave();
-    private List<int> _topScores = new List<int>();
+    private string zero = "0";
+    private GameSave gameSave = new GameSave();
+    private List<int> topScores = new List<int>();
 
     private void Awake()
     {
-        _topScores.AddRange(_gameSave.Load());                
+        topScores.AddRange(gameSave.Load());                
     }
 
     private void Start()
@@ -30,7 +29,7 @@ public class Score : MonoBehaviour
 
     public void NewGame()
     {
-        scoreText.text = _zero;
+        scoreText.text = zero;
     }
 
     public void GameOver(int s)
@@ -42,14 +41,14 @@ public class Score : MonoBehaviour
 
     private void CheckNewHighScore(int s)
     {
-        if (s < _topScores[4] || _topScores.Contains(s))
+        if (s < topScores[4] || topScores.Contains(s))
             return;
 
-        _topScores[4] = s;
-        _topScores.Sort();
-        _topScores.Reverse();
+        topScores[4] = s;
+        topScores.Sort();
+        topScores.Reverse();
 
-        _gameSave.Save(_topScores.ToArray());
+        gameSave.Save(topScores.ToArray());
 
         ShowTopScores();
     }
@@ -58,7 +57,7 @@ public class Score : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            topScoresText[i].text = _topScores[i].ToString();
+            topScoresText[i].text = topScores[i].ToString();
         }
     }
 }

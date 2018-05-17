@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7906ab829aede744c9f265111ef0f4a7, type: 3}
   m_Name: Medium
   m_EditorClassIdentifier: 
-  size: 0.8
+  size: 1.4
   points: 2
   timeOnScreen: 4
   color: {r: 0.97387004, g: 1, b: 0.41037738, a: 1}

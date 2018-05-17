@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -7,16 +6,23 @@ using UnityEngine.Events;
 public class Timer : MonoBehaviour
 {
     public Text timerText;
+    
+    /// <summary>
+    /// The time of the game round.
+    /// </summary>
     public int startTime;
 
-    private WaitForSeconds _wait = new WaitForSeconds(1);
-    private int _time;
+    private WaitForSeconds wait = new WaitForSeconds(1);
+    private int time;
 
     public UnityAction OnTimeOut;
 
-    public void Restart()
+    /// <summary>
+    /// Reset the timer, called at new game.
+    /// </summary>
+    public void NewGame()
     {
-        _time = startTime;
+        time = startTime;
         timerText.text = startTime.ToString();
         StartCoroutine("StartTimer");
     }
@@ -25,10 +31,10 @@ public class Timer : MonoBehaviour
     {
         while(true)
         {
-            yield return _wait;
-            _time--;
-            timerText.text = _time.ToString();
-            if (_time == 0)
+            yield return wait;
+            time--;
+            timerText.text = time.ToString();
+            if (time == 0)
                 break;
         }
         OnTimeOut();
