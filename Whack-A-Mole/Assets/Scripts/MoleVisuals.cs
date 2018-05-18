@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
+
 
 public class MoleVisuals : MonoBehaviour
 {
@@ -11,23 +13,7 @@ public class MoleVisuals : MonoBehaviour
     public RectTransform movingImage;
     public RectTransform target;
         
-    private bool animating;
     private float step;
-
-    void Update ()
-    {
-        if (!animating)
-            return;
-
-        movingImage.localPosition = Vector2.MoveTowards(movingImage.localPosition, target.localPosition, step);
-
-        if(Vector2.Distance(movingImage.localPosition, target.localPosition) < 0.05f)
-        {
-            movingImage.localPosition = target.localPosition;
-            animating = false;
-        }
-
-    }
 
     public void Respawn(MoleData data)
     {
@@ -39,6 +25,16 @@ public class MoleVisuals : MonoBehaviour
         movingImage.localPosition = Vector2.zero;
         step = (Vector2.Distance(movingImage.localPosition, target.localPosition) / data.timeOnScreen) * Time.deltaTime;
 
-        animating = true;
+        StartCoroutine("Animate");
+    }
+
+    IEnumerator Animate()
+    {
+        while(Vector2.Distance(movingImage.localPosition, target.localPosition) > 0.05f)
+        {
+            movingImage.localPosition = Vector2.MoveTowards(movingImage.localPosition, target.localPosition, step);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
